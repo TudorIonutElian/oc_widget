@@ -51,8 +51,8 @@ $(document).ready(function() {
                     status = 'loaded_news'
                 }
             },
-            error: function(errormessage) {
-                console.log(errormessage);
+            error: function(error) {
+                console.log(error);
             }
         });
 
@@ -68,7 +68,17 @@ $(document).ready(function() {
     getNewsFromAPI("http://www.mocky.io/v2/58fda6ce0f0000c40908b8c8", "GET");
 
     $(document).on('click', '.wtr_dot', function(e) {
-        // eliminare clase active de pe celelalte elemente
+        paginaCurenta = paginaCurenta + 1;
+
+        if (paginaCurenta < news.pages.length) {
+            paginaCurenta = paginaCurenta + 1;
+
+        } else if (paginaCurenta == news.pages.length) {
+            paginaCurenta = 1;
+        }
+
+        console.log(paginaCurenta)
+            // eliminare clase active de pe celelalte elemente
         $('.wtr_dot.dot-active').removeClass('dot-active')
 
         // setare clasa activa
@@ -77,7 +87,7 @@ $(document).ready(function() {
         showNewsOnWidget(news.pages[paginaCurenta - 1]);
     })
 
-    setTimeout(() => {
+    setInterval(() => {
         getNewsFromAPI();
     }, 18000);
 
